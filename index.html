@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Oxford Inn · Ozark, Arkansas · A Nice Place to Stay</title>
+  <meta name="description" content="Oxford Inn in Ozark, Arkansas: freshly styled King and Double rooms, free Wi‑Fi, 42″ TVs, in‑room coffee and fridge. Book direct for the lowest rates.">
+  <meta name="theme-color" content="#0e1518">
+  <meta property="og:title" content="Oxford Inn · A Nice Place in Ozark, Arkansas">
+  <meta property="og:description" content="Charm, peace and quiet, and the perfect base for exploring Arkansas. Book direct for the lowest rates.">
+  <meta property="og:image" content="images/king-1.jpg">
+  <link rel="icon" href="images/logo-180.png">
+  <link rel="apple-touch-icon" href="images/logo-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..800,50;1,9..144,300..800,100&family=Manrope:wght@400;500;600;700;800&family=Neonderthaw&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply saved theme before paint to avoid a flash
+    try { const t = localStorage.getItem('oi-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Motel",
+    "name": "Oxford Inn",
+    "slogan": "A Nice Place",
+    "telephone": "+1-479-667-1131",
+    "email": "oxfordinnozark@gmail.com",
+    "url": "https://oxfordinnhotel.com/",
+    "address": {"@type": "PostalAddress","streetAddress": "305 N 18th St","addressLocality": "Ozark","addressRegion": "AR","postalCode": "72949","addressCountry": "US"},
+    "geo": {"@type": "GeoCoordinates","latitude": 35.490306,"longitude": -93.84393},
+    "amenityFeature": [
+      {"@type":"LocationFeatureSpecification","name":"Free Wi-Fi","value":true},
+      {"@type":"LocationFeatureSpecification","name":"42 inch LCD TV","value":true},
+      {"@type":"LocationFeatureSpecification","name":"In-room coffee","value":true},
+      {"@type":"LocationFeatureSpecification","name":"Refrigerator","value":true},
+      {"@type":"LocationFeatureSpecification","name":"Hair dryer","value":true}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__logo"><span class="logo-mask"></span><span class="logo-mask logo-mask--fill"></span></div>
+  <p class="preloader__tag">A Nice Place</p>
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav__brand" aria-label="Oxford Inn home">
+    <span class="logo-mask nav__logo"></span>
+    <span class="nav__name">Oxford Inn<small>Ozark · Arkansas</small></span>
+  </a>
+  <nav class="nav__links" aria-label="Main">
+    <a href="#rooms">Rooms</a>
+    <a href="#tour">Tour</a>
+    <a href="#amenities">Amenities</a>
+    <a href="#explore">Explore</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav__actions">
+    <button class="lamp" id="lampToggle" aria-label="Toggle night mode" title="Pull the lamp chain">
+      <svg viewBox="0 0 40 56" aria-hidden="true">
+        <line class="lamp__cord" x1="20" y1="0" x2="20" y2="10"/>
+        <path class="lamp__shade" d="M9 26 L13 11 H27 L31 26 Z"/>
+        <ellipse class="lamp__bulb" cx="20" cy="28" rx="5" ry="3"/>
+        <g class="lamp__chain"><line x1="26" y1="26" x2="26" y2="40"/><circle cx="26" cy="42" r="2.2"/></g>
+      </svg>
+    </button>
+    <a class="nav__phone" href="tel:+14796671131">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>(479) 667‑1131</span>
+    </a>
+    <a class="btn btn--glow magnetic" href="#book" data-book>Book Direct</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav>
+    <a href="#rooms">Rooms</a>
+    <a href="#tour">Take the Tour</a>
+    <a href="#amenities">Amenities</a>
+    <a href="#explore">Explore Ozark</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="menu__foot">
+    <a href="tel:+14796671131">(479) 667‑1131</a>
+    <a href="mailto:oxfordinnozark@gmail.com">oxfordinnozark@gmail.com</a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero__slides" id="heroSlides">
+    <div class="hero__slide is-active" style="--img:url('images/double-6.jpg'); --img-sm:url('images/double-6-1200.jpg')"></div>
+    <div class="hero__slide" style="--img:url('images/aerial-bridge.jpg'); --img-sm:url('images/aerial-bridge-1200.jpg')"></div>
+    <div class="hero__slide" style="--img:url('images/king-1.jpg'); --img-sm:url('images/king-1-1200.jpg')"></div>
+    <div class="hero__slide" style="--img:url('images/exterior.jpg'); --img-sm:url('images/exterior-1200.jpg')"></div>
+  </div>
+  <div class="hero__shade"></div>
+  <div class="hero__grain"></div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow reveal-up"><span class="dot"></span><span id="liveLine">Ozark, Arkansas</span></p>
+    <h1 class="hero__title">
+      <span class="split">Stay a while.</span>
+      <em class="split split--italic">It’s a nice place.</em>
+    </h1>
+    <p class="hero__lede reveal-up" style="--d:.9s">Fresh, mid‑century styled rooms, real peace and quiet, and the perfect home base for the Arkansas River Valley, with the lowest rates when you book with us directly.</p>
+    <div class="hero__ctas reveal-up" style="--d:1.05s">
+      <a href="#rooms" class="btn btn--light magnetic">See the rooms</a>
+      <a href="#tour" class="btn btn--ghost magnetic">
+        <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg> Take the tour
+      </a>
+    </div>
+  </div>
+
+  <div class="neon" aria-hidden="true">
+    <span class="neon__small">Oxford Inn</span>
+    <span class="neon__big">a <b>n</b>ice pl<b>a</b>ce</span>
+  </div>
+
+  <div class="hero__dots" id="heroDots" role="tablist" aria-label="Hero photos"></div>
+
+  <!-- Booking bar -->
+  <form class="booking" id="book" autocomplete="off">
+    <div class="booking__badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 9.3l-5.5 4.8 1.7 7.2L12 17.8 5.8 21.3l1.7-7.2L2 9.3l7.1-.4z"/></svg>
+      Lowest rates when you book direct
+    </div>
+    <label class="booking__field" for="checkin">
+      <span class="booking__label">Check in</span>
+      <span class="booking__date"><b data-day="in">06</b><span><i data-mon="in">Oct</i><i data-dow="in">Tue</i></span></span>
+      <input type="date" id="checkin" required>
+    </label>
+    <div class="booking__nights"><span id="nights">1</span><small id="nightsLabel">night</small></div>
+    <label class="booking__field" for="checkout">
+      <span class="booking__label">Check out</span>
+      <span class="booking__date"><b data-day="out">07</b><span><i data-mon="out">Oct</i><i data-dow="out">Wed</i></span></span>
+      <input type="date" id="checkout" required>
+    </label>
+    <div class="booking__field booking__field--guests">
+      <span class="booking__label">Guests</span>
+      <div class="stepper">
+        <button type="button" data-step="-1" aria-label="Fewer guests">−</button>
+        <output id="guests">1</output>
+        <button type="button" data-step="1" aria-label="More guests">+</button>
+      </div>
+    </div>
+    <button class="btn btn--glow booking__go magnetic" type="submit">
+      Check availability
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </form>
+
+  <a href="#welcome" class="hero__scroll" aria-label="Scroll down"><span></span></a>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Free Wi‑Fi</span><i>✦</i><span>42″ LCD TVs</span><i>✦</i><span>Coffee in every room</span><i>✦</i><span>Mini fridge</span><i>✦</i><span>Hair dryer</span><i>✦</i><span>Work desk &amp; ergonomic chair</span><i>✦</i><span>Accessible rooms</span><i>✦</i><span>Book direct · lowest fares</span><i>✦</i>
+    <span>Free Wi‑Fi</span><i>✦</i><span>42″ LCD TVs</span><i>✦</i><span>Coffee in every room</span><i>✦</i><span>Mini fridge</span><i>✦</i><span>Hair dryer</span><i>✦</i><span>Work desk &amp; ergonomic chair</span><i>✦</i><span>Accessible rooms</span><i>✦</i><span>Book direct · lowest fares</span><i>✦</i>
+  </div>
+</div>
+
+<!-- ============ WELCOME ============ -->
+<section class="welcome section" id="welcome">
+  <div class="welcome__media">
+    <figure class="welcome__img welcome__img--a parallax" data-speed="-0.06"><img src="images/exterior.jpg" srcset="images/exterior-1200.jpg 1200w, images/exterior.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Oxford Inn on a sunny day, seen from the street" loading="lazy"></figure>
+    <figure class="welcome__img welcome__img--b parallax" data-speed="0.08"><img src="images/king-3.jpg" srcset="images/king-3-1200.jpg 1200w, images/king-3.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="King room with work desk and fresh linens" loading="lazy"></figure>
+    <div class="welcome__stamp spin-on-scroll" aria-hidden="true">
+      <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+        <text><textPath href="#circ">WELCOME TO OXFORD INN ✦ OZARK · ARKANSAS ✦ </textPath></text></svg>
+      <span class="logo-mask"></span>
+    </div>
+  </div>
+  <div class="welcome__copy">
+    <p class="eyebrow reveal">Welcome to Oxford Inn</p>
+    <h2 class="display reveal">Charm, peace &amp; quiet, <em>and</em> the best seat in the River Valley.</h2>
+    <p class="reveal">Oxford Inn gives you an amazing stay at an affordable price. It’s the right choice if you’re after a mix of charm, peace and quiet, and a convenient spot from which to explore Arkansas. It’s a comfortable motel with plenty of amenities, right here in Ozark.</p>
+    <p class="reveal">Our rooms were recently restyled with walnut headboards, warm paper lanterns and cool teal accents. Every room has the basics covered so you can just relax.</p>
+    <div class="stats">
+      <div class="stat reveal"><b data-count="3">0</b><span>room styles</span></div>
+      <div class="stat reveal"><b data-count="42" data-suffix="″">0</b><span>LCD TV in every room</span></div>
+      <div class="stat reveal"><b data-count="1.1" data-decimals="1" data-suffix=" mi">0</b><span>to the Ozark Area Museum</span></div>
+      <div class="stat reveal"><b data-count="5.5" data-decimals="1" data-suffix=" mi">0</b><span>to Altus wine country</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROOMS ============ -->
+<section class="rooms section" id="rooms">
+  <header class="section__head">
+    <p class="eyebrow reveal">Explore our rooms</p>
+    <h2 class="display reveal">Pick your <em>perfect</em> room.</h2>
+  </header>
+
+  <div class="tabs reveal" role="tablist" aria-label="Room types" id="roomTabs">
+    <span class="tabs__pill" id="tabsPill"></span>
+  </div>
+
+  <div class="room" id="room">
+    <div class="room__stage tilt" id="roomStage">
+      <div class="room__frames" id="roomFrames"></div>
+      <button class="room__arrow room__arrow--prev" data-dir="-1" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="room__arrow room__arrow--next" data-dir="1" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      <div class="room__count"><b id="roomIdx">01</b> / <span id="roomTotal">03</span></div>
+      <button class="room__zoom" id="roomZoom" aria-label="View full screen"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="room__info">
+      <p class="room__kicker" id="roomKicker"></p>
+      <h3 class="room__name" id="roomName"></h3>
+      <p class="room__desc" id="roomDesc"></p>
+      <ul class="chips" id="roomChips"></ul>
+      <div class="room__thumbs" id="roomThumbs"></div>
+      <div class="room__cta">
+        <a class="btn btn--glow magnetic" href="#" data-book-link>Check dates &amp; book <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a class="btn btn--text" href="tel:+14796671131">or call (479) 667‑1131</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PINNED HORIZONTAL TOUR ============ -->
+<section class="tour" id="tour">
+  <div class="tour__sticky">
+    <div class="tour__intro">
+      <p class="eyebrow">Take the tour</p>
+      <h2 class="display">Step <em>inside.</em></h2>
+      <p>Scroll to stroll through the rooms. Tap any photo to see it full screen.</p>
+      <div class="tour__bar"><span id="tourBar"></span></div>
+    </div>
+    <div class="tour__track" id="tourTrack">
+      <figure class="tour__card" data-lightbox="tour"><img src="images/exterior.jpg" srcset="images/exterior-1200.jpg 1200w, images/exterior.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Oxford Inn from the street on a sunny day" loading="lazy"><figcaption><b>Oxford Inn</b> 305 N 18th St, Ozark</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/king-1.jpg" srcset="images/king-1-1200.jpg 1200w, images/king-1.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="King room with a big window and balcony view" loading="lazy"><figcaption><b>King</b> Window‑side light</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/double-6.jpg" srcset="images/double-6-1200.jpg 1200w, images/double-6.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Double room with two beds and a long desk" loading="lazy"><figcaption><b>Two Doubles</b> Room for the whole crew</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/king-2.jpg" srcset="images/king-2-1200.jpg 1200w, images/king-2.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="King room with lounge sofa and pendant lamp" loading="lazy"><figcaption><b>King</b> Lounge corner</figcaption></figure>
+      <figure class="tour__card tour__card--tall" data-lightbox="tour"><img src="images/bath.jpg" srcset="images/bath-1200.jpg 1200w, images/bath.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Vanity with coffee maker and bath with shower" loading="lazy"><figcaption><b>Vanity &amp; bath</b> Coffee’s on us</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/desk.jpg" srcset="images/desk-1200.jpg 1200w, images/desk.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Lantern-lit work desk with ergonomic chair" loading="lazy"><figcaption><b>The desk</b> Get some work done</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/king-3.jpg" srcset="images/king-3-1200.jpg 1200w, images/king-3.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="King room with lantern-lit desk" loading="lazy"><figcaption><b>King</b> Lantern‑lit desk</figcaption></figure>
+      <figure class="tour__card tour__card--tall" data-lightbox="tour"><img src="images/double-5.jpg" srcset="images/double-5-1200.jpg 1200w, images/double-5.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Double room opening onto the walkway" loading="lazy"><figcaption><b>Two Doubles</b> Sunny side up</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/double-7.jpg" srcset="images/double-7-1200.jpg 1200w, images/double-7.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Double room with walnut headboards and desk" loading="lazy"><figcaption><b>Two Doubles</b> Walnut &amp; lantern light</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/lobby.jpg" srcset="images/lobby-1200.jpg 1200w, images/lobby.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Front desk and lobby with plants" loading="lazy"><figcaption><b>The lobby</b> Come say hi</figcaption></figure>
+      <figure class="tour__card" data-lightbox="tour"><img src="images/aerial-bridge.jpg" srcset="images/aerial-bridge-1200.jpg 1200w, images/aerial-bridge.jpg 2400w" sizes="(max-width: 900px) 84vw, 40vw" alt="Aerial view of Ozark and the Arkansas River bridge" loading="lazy"><figcaption><b>Ozark</b> On the Arkansas River</figcaption></figure>
+      <div class="tour__end">
+        <p class="display">Like what<br>you see?</p>
+        <a class="btn btn--glow magnetic" href="#book" data-book>Book your stay</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AMENITIES ============ -->
+<section class="amenities section" id="amenities">
+  <header class="section__head">
+    <p class="eyebrow reveal">We got you covered</p>
+    <h2 class="display reveal">Your job is to enjoy yourself. <em>Ours is to make sure you do.</em></h2>
+  </header>
+  <div class="amenity-grid">
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><path class="a1" d="M5 12.55a11 11 0 0 1 14.08 0"/><path class="a2" d="M1.42 9a16 16 0 0 1 21.16 0"/><path class="a0" d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r=".8"/></svg>
+      <h3>Free Wi‑Fi</h3><p>Stream, scroll and video call. It’s included, always.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+      <h3>42″ LCD TV</h3><p>A big screen for game night or a lazy movie marathon.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path class="steam" d="M6 2v3M10 2v3M14 2v3"/></svg>
+      <h3>Coffee in room</h3><p>Brew your first cup before you even put shoes on.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 10h14"/><path d="M9 5v2M9 13v3"/></svg>
+      <h3>Refrigerator</h3><p>Keep drinks cold and leftovers fresh.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="5"/><circle cx="8" cy="9" r="1.6"/><path d="M13 6.5h7v5h-7"/><path d="M7 14l1.2 7h3L10.5 14"/></svg>
+      <h3>Hair dryer</h3><p>Pack light. We’ve got this one handled.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><path d="M3 10h18"/><path d="M5 10v10M19 10v10"/><path d="M14 10V6h5v4"/><path d="M8 6l2 4"/></svg>
+      <h3>Work desk</h3><p>A long desk and an ergonomic chair for the road warriors.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+      <h3>Fresh, clean beds</h3><p>Crisp white linens and plenty of pillows, made fresh for you.</p>
+    </article>
+    <article class="amenity reveal spotlight">
+      <svg viewBox="0 0 24 24"><circle cx="16" cy="4" r="1.2"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>
+      <h3>Accessible rooms</h3><p>Accessible double rooms are available, so just ask.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ BOOK DIRECT BANNER ============ -->
+<section class="direct" id="direct">
+  <div class="direct__bg parallax" data-speed="0.12" style="--img:url('images/aerial-river.jpg'); --img-sm:url('images/aerial-river-1200.jpg')"></div>
+  <div class="direct__inner">
+    <span class="logo-mask direct__logo reveal"></span>
+    <h2 class="display reveal">For the lowest fares,<br><em>book directly with us.</em></h2>
+    <ul class="direct__perks">
+      <li class="reveal"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Lowest rates are on our own site</li>
+      <li class="reveal"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Talk to real people at the front desk</li>
+      <li class="reveal"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Instant confirmation, secure booking</li>
+    </ul>
+    <div class="direct__ctas reveal">
+      <a class="btn btn--glow btn--lg magnetic" href="#book" data-book>Book now</a>
+      <a class="btn btn--ghost btn--lg magnetic" href="tel:+14796671131">Call (479) 667‑1131</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="explore section" id="explore">
+  <header class="section__head">
+    <p class="eyebrow reveal">Explore the area</p>
+    <h2 class="display reveal">Your basecamp for the <em>Arkansas River Valley.</em></h2>
+  </header>
+
+  <figure class="vista reveal">
+    <div class="vista__img parallax" data-speed="0.08"><img src="images/aerial-valley.jpg" srcset="images/aerial-valley-1200.jpg 1200w, images/aerial-valley.jpg 2400w" sizes="(max-width: 1320px) 100vw, 1320px" alt="Aerial view of Ozark, Arkansas, with the Arkansas River and rolling hills" loading="lazy"></div>
+    <figcaption><span class="vista__pin"></span>Ozark, Arkansas · where the river meets the Ozark Mountains</figcaption>
+  </figure>
+
+  <div class="filters reveal" id="filters" role="toolbar" aria-label="Filter places">
+    <button class="is-on" data-filter="all">All</button>
+    <button data-filter="history">Museums</button>
+    <button data-filter="wine">Wine</button>
+    <button data-filter="outdoors">Outdoors</button>
+    <button data-filter="events">Tours &amp; events</button>
+    <button data-filter="travel">Transport</button>
+  </div>
+
+  <div class="explore__grid">
+    <div class="radar reveal" id="radar">
+      <svg viewBox="-220 -220 440 440" id="radarSvg" role="img" aria-label="Radar map of nearby places, distances from Oxford Inn">
+        <defs>
+          <linearGradient id="sweepGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#19a6ac" stop-opacity="0"/>
+            <stop offset="1" stop-color="#19a6ac" stop-opacity=".38"/>
+          </linearGradient>
+        </defs>
+        <g class="radar__rings" id="radarRings"></g>
+        <g class="radar__compass">
+          <text x="0" y="-206">N</text><text x="206" y="5">E</text><text x="0" y="214">S</text><text x="-206" y="5">W</text>
+        </g>
+        <g class="radar__sweep"><path d="M0 0 L0 -190 A190 190 0 0 1 134 -134 Z" fill="url(#sweepGrad)"/><line x1="0" y1="0" x2="134" y2="-134"/></g>
+        <g id="radarPins"></g>
+        <g class="radar__home">
+          <circle r="16" class="radar__pulse"/>
+          <circle r="9"/>
+          <text y="30">Oxford Inn</text>
+        </g>
+      </svg>
+      <p class="radar__note">Distance rings to scale · directions approximate</p>
+    </div>
+    <ol class="places" id="places"></ol>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery section" id="gallery">
+  <header class="section__head section__head--row">
+    <div>
+      <p class="eyebrow reveal">Gallery</p>
+      <h2 class="display reveal">Every corner, <em>considered.</em></h2>
+    </div>
+    <p class="reveal muted">Stone pillars and sunny yellow outside. Walnut headboards with cloud cut‑outs, paper lantern lamps, and a pop of teal. The look is retro, and the comfort is brand new.</p>
+  </header>
+  <div class="masonry">
+    <figure data-lightbox="gallery" class="reveal"><img src="images/exterior.jpg" srcset="images/exterior-1200.jpg 1200w, images/exterior.jpg 2400w" sizes="(max-width: 640px) 50vw, 33vw" alt="Oxford Inn on a sunny day" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/double-6.jpg" srcset="images/double-6-1200.jpg 1200w, images/double-6.jpg 2400w" sizes="(max-width: 640px) 50vw, 33vw" alt="Two-bed room with long desk" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/king-2.jpg" srcset="images/king-2-1200.jpg 1200w, images/king-2.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="King room with sofa" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/aerial-river.jpg" srcset="images/aerial-river-1200.jpg 1200w, images/aerial-river.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Ozark and the Arkansas River from above" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/lobby.jpg" srcset="images/lobby-1200.jpg 1200w, images/lobby.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Front desk and lobby" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/desk.jpg" srcset="images/desk-1200.jpg 1200w, images/desk.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Lantern-lit work desk" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/double-7.jpg" srcset="images/double-7-1200.jpg 1200w, images/double-7.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Two-bed room with walnut headboards" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/king-1.jpg" srcset="images/king-1-1200.jpg 1200w, images/king-1.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="King room by the window" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/bath.jpg" srcset="images/bath-1200.jpg 1200w, images/bath.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Vanity and bathroom" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/double-8.jpg" srcset="images/double-8-1200.jpg 1200w, images/double-8.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Two-bed room with lounge sofa" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/aerial-bridge.jpg" srcset="images/aerial-bridge-1200.jpg 1200w, images/aerial-bridge.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="The Arkansas River bridge in Ozark" loading="lazy"></figure>
+    <figure data-lightbox="gallery" class="reveal"><img src="images/double-1.jpg" srcset="images/double-1-1200.jpg 1200w, images/double-1.jpg 2400w" sizes="(max-width: 900px) 100vw, 50vw" alt="Sunny double room" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact section" id="contact">
+  <div class="contact__card">
+    <p class="eyebrow reveal">Find us</p>
+    <h2 class="display reveal">We’ll leave the <em>light on.</em></h2>
+    <ul class="contact__list">
+      <li class="reveal">
+        <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><small>Address</small><a href="https://www.google.com/maps/search/?api=1&query=35.490306,-93.84393" target="_blank" rel="noopener">305 N 18th St, Ozark, AR 72949</a></div>
+      </li>
+      <li class="reveal">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div><small>Phone</small><a href="tel:+14796671131">(479) 667‑1131</a></div>
+      </li>
+      <li class="reveal">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        <div><small>Email</small><a href="mailto:oxfordinnozark@gmail.com">oxfordinnozark@gmail.com</a></div>
+      </li>
+    </ul>
+    <div class="contact__ctas reveal">
+      <a class="btn btn--glow magnetic" href="https://www.google.com/maps/dir/?api=1&destination=35.490306,-93.84393" target="_blank" rel="noopener">Get directions</a>
+      <button class="btn btn--text" id="copyAddr" type="button">Copy address</button>
+    </div>
+  </div>
+  <div class="contact__map reveal">
+    <iframe title="Map showing Oxford Inn in Ozark, Arkansas" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=35.490306,-93.84393&z=14&output=embed"></iframe>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__big" aria-hidden="true">Oxford Inn</div>
+  <div class="footer__row">
+    <a href="#top" class="nav__brand"><span class="logo-mask nav__logo"></span><span class="nav__name">Oxford Inn<small>A Nice Place</small></span></a>
+    <nav><a href="#rooms">Rooms</a><a href="#amenities">Amenities</a><a href="#explore">Explore</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav>
+    <p>305 N 18th St, Ozark, AR 72949 · <a href="tel:+14796671131">(479) 667‑1131</a></p>
+  </div>
+  <p class="footer__legal">© <span id="year">2026</span> Oxford Inn. All rights reserved.</p>
+</footer>
+
+<!-- Mobile sticky action bar -->
+<div class="mbar">
+  <a href="tel:+14796671131" class="mbar__call" aria-label="Call Oxford Inn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call</a>
+  <a href="#book" class="btn btn--glow" data-book>Book direct · lowest rate</a>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lightbox__close" aria-label="Close">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="lightbox__nav lightbox__nav--next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
