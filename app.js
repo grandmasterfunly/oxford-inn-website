@@ -536,55 +536,157 @@
   const R = 190, MAXMI = 40;
   const rad = mi => R * Math.sqrt(mi / MAXMI);
   const NS = 'http://www.w3.org/2000/svg';
+  const svg = $('#radarSvg');
   const ringsG = $('#radarRings'), pinsG = $('#radarPins'), list = $('#places');
+  const chipsWrap = $('#radarChips'), card = $('#radarCard');
+  const small = () => matchMedia('(max-width: 900px)').matches;
   [2, 10, 20, 40].forEach(mi => {
     const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', rad(mi)); ringsG.append(c);
     const t = document.createElementNS(NS, 'text'); t.setAttribute('x', 4); t.setAttribute('y', -rad(mi) - 4); t.textContent = `${mi} mi`; ringsG.append(t);
   });
   const mapsUrl = q => `https://www.google.com/maps/dir/?api=1&origin=35.490306,-93.84393&destination=${encodeURIComponent(q)}`;
+  const num = i => String(i + 1).padStart(2, '0');
+  const dist = p => `${p.approx ? '≈' : ''}${p.mi}`;
 
   PLACES.forEach((p, i) => {
     const a = (p.dir - 90) * Math.PI / 180; // 0 = north
-    const r = rad(p.mi), x = Math.cos(a) * r, y = Math.sin(a) * r;
+    const r = rad(p.mi);
+    p.x0 = Math.cos(a) * r; p.y0 = Math.sin(a) * r;
+    // Only the transparent .pin__hit circle takes taps; line/ring/label never do (see layoutPins for sizes/positions).
     const g = document.createElementNS(NS, 'g'); g.classList.add('pin'); g.dataset.i = i; g.dataset.cat = p.cat;
-    g.innerHTML = `<line x1="0" y1="0" x2="${x}" y2="${y}"/><circle class="ring" cx="${x}" cy="${y}" r="10"/><circle cx="${x}" cy="${y}" r="7"/><text x="${x + (x > 60 ? -12 : 12)}" y="${y - 12}" text-anchor="${x > 60 ? 'end' : 'start'}">${p.name}</text>`;
+    g.innerHTML = `<line class="pin__line" x1="0" y1="0"/><circle class="ring" r="10"/><circle class="pin__dot" r="7"/><text class="pin__label">${p.name}</text><circle class="pin__hit" r="10"/>`;
     pinsG.append(g);
 
     const li = document.createElement('li');
     li.className = 'place'; li.dataset.i = i; li.dataset.cat = p.cat; li.tabIndex = 0;
     li.innerHTML = `
-      <span class="place__num">${String(i + 1).padStart(2, '0')}</span>
+      <span class="place__num">${num(i)}</span>
       <div><span class="place__tag">${p.tag}</span><h3>${p.name}</h3><p>${p.addr}</p></div>
-      <div class="place__dist"><b>${p.approx ? '≈' : ''}${p.mi}</b><small>miles</small></div>
+      <div class="place__dist"><b>${dist(p)}</b><small>miles</small></div>
       <div class="place__go"><a href="${mapsUrl(p.q)}" target="_blank" rel="noopener">Get directions →</a></div>`;
     list.append(li);
-  });
 
-  const pins = $$('.pin', pinsG), items = $$('.place', list);
+    // phones: chip row + detail card under the radar
+    const chip = document.createElement('button');
+    chip.type = 'button'; chip.className = 'rchip'; chip.dataset.i = i; chip.dataset.cat = p.cat;
+    chip.setAttribute('role', 'tab'); chip.setAttribute('aria-selected', 'false');
+    chip.innerHTML = `<b>${num(i)}</b>${p.name}`;
+    chipsWrap.append(chip);
+
+    const panel = document.createElement('div');
+    panel.className = 'rcard__panel'; panel.dataset.i = i;
+    panel.innerHTML = `
+      <span class="rcard__num">${num(i)}</span>
+      <div class="rcard__body"><span class="place__tag">${p.tag}<span class="rcard__mi"> · ${dist(p)} mi</span></span><h3>${p.name}</h3><p>${p.addr}</p></div>
+      <a class="rcard__go" href="${mapsUrl(p.q)}" target="_blank" rel="noopener" tabindex="-1" aria-label="Get directions to ${p.name}"><span class="rcard__goic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></span>Directions</a>`;
+    card.append(panel);
+  });
+  const prompt = document.createElement('div');
+  prompt.className = 'rcard__panel rcard__panel--prompt is-on'; prompt.dataset.i = '-1';
+  prompt.innerHTML = `
+    <span class="rcard__num" aria-hidden="true">✦</span>
+    <div class="rcard__body"><span class="place__tag">Explore nearby</span><h3>Tap a pin on the radar</h3><p>or pick a place above for distance and directions.</p></div>`;
+  card.prepend(prompt);
+
+  const pins = $$('.pin', pinsG), items = $$('.place', list), chips = $$('.rchip', chipsWrap), panels = $$('.rcard__panel', card);
+
+  // Place the pins. Desktop: true positions (unchanged). Phones: nudge clustered pins apart so every
+  // pin gets its own ≥44px tap circle with no overlap (the Altus pins sit within a few px of each other).
+  const layoutPins = () => {
+    const sm = small();
+    const w = svg.getBoundingClientRect().width || 360;
+    const upp = 440 / w; // svg units per CSS px
+    const minSep = 48 * upp;
+    const pts = PLACES.map(p => ({ x: p.x0, y: p.y0 }));
+    if (sm) {
+      const homeClear = Math.max(minSep * 0.85, 44);
+      const N = 700;
+      for (let it = 0; it < N; it++) {
+        const k = it < N - 150 ? 0.03 * (1 - it / N) : 0; // gentle pull toward the true spot, off for the last passes
+        pts.forEach((P, j) => { P.x += (PLACES[j].x0 - P.x) * k; P.y += (PLACES[j].y0 - P.y) * k; });
+        for (let a = 0; a < pts.length; a++) for (let b = a + 1; b < pts.length; b++) {
+          const A = pts[a], B = pts[b];
+          let dx = B.x - A.x, dy = B.y - A.y, d = Math.hypot(dx, dy);
+          if (d < 0.01) { dx = 0.01; dy = 0; d = 0.01; }
+          if (d < minSep) { const f = (minSep - d) / 2 / d; A.x -= dx * f; A.y -= dy * f; B.x += dx * f; B.y += dy * f; }
+        }
+        pts.forEach(P => {
+          const d = Math.hypot(P.x, P.y) || 0.01;
+          const lim = d < homeClear ? homeClear : d > R - 6 ? R - 6 : 0;
+          if (lim) { P.x *= lim / d; P.y *= lim / d; }
+        });
+      }
+    }
+    pins.forEach((g, j) => {
+      const { x, y } = pts[j];
+      let near = Infinity;
+      pts.forEach((Q, k) => { if (k !== j) near = Math.min(near, Math.hypot(Q.x - x, Q.y - y)); });
+      const hitR = sm ? Math.min(minSep / 2, near / 2 - 0.5) : 10;
+      const dotR = sm ? 8.5 * upp : 7;
+      const off = sm ? dotR + 6 : 12;
+      const [line, ring, dot, label, hit] = g.children;
+      line.setAttribute('x2', x); line.setAttribute('y2', y);
+      [ring, dot, hit].forEach(c => { c.setAttribute('cx', x); c.setAttribute('cy', y); });
+      dot.setAttribute('r', dotR); hit.setAttribute('r', hitR);
+      const right = x > 60;
+      label.setAttribute('x', x + (right ? -off : off)); label.setAttribute('y', y - off);
+      label.setAttribute('text-anchor', right ? 'end' : 'start');
+    });
+  };
+  layoutPins();
+  let lw = innerWidth;
+  addEventListener('resize', () => { if (innerWidth !== lw) { lw = innerWidth; layoutPins(); } });
+
   let pinned = null;
   const hot = i => {
     pins.forEach(p => p.classList.toggle('is-hot', +p.dataset.i === i));
     items.forEach(p => p.classList.toggle('is-hot', +p.dataset.i === i));
+    chips.forEach(c => { const on = +c.dataset.i === i; c.classList.toggle('is-on', on); c.setAttribute('aria-selected', on); });
     const pg = pins.find(p => +p.dataset.i === i);
-    pg && pinsG.append(pg); // bring to front
+    if (pg && pinsG.lastElementChild !== pg) pinsG.append(pg); // bring to front (only when needed)
   };
+  const showCard = i => {
+    const key = i == null ? -1 : i;
+    panels.forEach(p => {
+      const on = +p.dataset.i === key;
+      p.classList.toggle('is-on', on);
+      p.setAttribute('aria-hidden', !on);
+      const a = p.querySelector('a'); a && (a.tabIndex = on ? 0 : -1);
+    });
+  };
+  // keep the card fully on screen: never under the fixed nav or the Call / Book bar
+  const ensureVisible = el => {
+    const r = el.getBoundingClientRect();
+    const barH = mbar && getComputedStyle(mbar).display !== 'none' ? mbar.offsetHeight + 24 : 12;
+    const top = 84, bottom = innerHeight - barH;
+    const dy = r.bottom > bottom ? Math.min(r.bottom - bottom, r.top - top) : r.top < top ? r.top - top : 0;
+    if (Math.abs(dy) > 1) scrollBy({ top: dy, behavior: reduced ? 'auto' : 'smooth' });
+  };
+  const centerChip = i => {
+    const c = chips[i]; if (!c) return;
+    const left = c.offsetLeft - (chipsWrap.clientWidth - c.offsetWidth) / 2;
+    chipsWrap.scrollTo({ left: Math.max(0, left), behavior: reduced ? 'auto' : 'smooth' });
+  };
+  const select = i => {
+    pinned = i; hot(i); showCard(i); buzz(5);
+    if (small() && i != null) { centerChip(i); ensureVisible(card); }
+  };
+
   items.forEach(li => {
     const i = +li.dataset.i;
-    li.addEventListener('pointerenter', () => finePointer && hot(i));
-    li.addEventListener('pointerleave', () => finePointer && hot(pinned));
-    li.addEventListener('click', e => { if (e.target.closest('a')) return; pinned = pinned === i ? null : i; hot(pinned); buzz(5); });
-    li.addEventListener('keydown', e => { if (e.key === 'Enter') { pinned = pinned === i ? null : i; hot(pinned); } });
+    li.addEventListener('pointerenter', e => e.pointerType === 'mouse' && hot(i));
+    li.addEventListener('pointerleave', e => e.pointerType === 'mouse' && hot(pinned));
+    li.addEventListener('click', e => { if (e.target.closest('a')) return; pinned = pinned === i ? null : i; hot(pinned); showCard(pinned); buzz(5); });
+    li.addEventListener('keydown', e => { if (e.key === 'Enter') { pinned = pinned === i ? null : i; hot(pinned); showCard(pinned); } });
   });
   pins.forEach(p => {
     const i = +p.dataset.i;
-    p.addEventListener('pointerenter', () => hot(i));
-    p.addEventListener('pointerleave', () => hot(pinned));
-    p.addEventListener('click', () => {
-      pinned = i; hot(i);
-      const li = items[i];
-      if (!matchMedia('(min-width: 901px)').matches) li.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
+    // hover preview is for mice only; on touch a tap is one clean click (no hover state, no DOM shuffling mid-tap)
+    p.addEventListener('pointerenter', e => e.pointerType === 'mouse' && hot(i));
+    p.addEventListener('pointerleave', e => e.pointerType === 'mouse' && hot(pinned));
+    p.addEventListener('click', () => select(i));
   });
+  chips.forEach(c => c.addEventListener('click', () => select(+c.dataset.i)));
 
   $$('#filters button').forEach(b => b.addEventListener('click', () => {
     $$('#filters button').forEach(x => x.classList.toggle('is-on', x === b));
@@ -594,8 +696,10 @@
       li.classList.toggle('is-hidden', !show);
       if (show && !reduced) li.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.16,1,.3,1)' });
     });
+    chips.forEach(c => c.classList.toggle('is-hidden', !(f === 'all' || c.dataset.cat === f)));
+    chipsWrap.scrollTo({ left: 0 });
     pins.forEach(p => p.classList.toggle('is-dim', !(f === 'all' || p.dataset.cat === f)));
-    pinned = null; hot(null); buzz(5);
+    pinned = null; hot(null); showCard(null); buzz(5);
   }));
 
   /* ---------------- Contact helpers ---------------- */

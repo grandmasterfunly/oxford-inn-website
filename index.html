@@ -362,7 +362,10 @@
           <text y="30">Oxford Inn</text>
         </g>
       </svg>
-      <p class="radar__note">Distance rings to scale · directions approximate</p>
+      <p class="radar__note"><span class="radar__note--lg">Distance rings to scale · directions approximate</span><span class="radar__note--sm">Distance rings to scale · pins spaced for easy tapping</span></p>
+      <!-- phones: tap-friendly place picker + detail card that stay right under the radar -->
+      <div class="rchips" id="radarChips" role="tablist" aria-label="Nearby places"></div>
+      <div class="rcard" id="radarCard" aria-live="polite"></div>
     </div>
     <ol class="places" id="places"></ol>
   </div>
