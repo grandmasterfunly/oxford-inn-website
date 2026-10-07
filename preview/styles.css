@@ -656,15 +656,92 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round
   .room__arrow { opacity: 1; transform: none; width: 42px; height: 42px; margin-top: -21px; }
 }
 @media (max-width: 640px) {
-  .booking { grid-template-columns: 1fr auto 1fr; margin-inline: 12px; padding: 8px; border-radius: 22px; }
-  .booking__field { padding: 12px 14px; }
+  /* Mobile booking card: symmetrical grid, full-width ribbon, even padding */
+  .booking {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas:
+      "badge badge badge"
+      "in nights out"
+      "guests guests guests"
+      "go go go";
+    margin-inline: 12px;
+    margin-bottom: 28px;
+    padding: 0 0 12px;
+    border-radius: 22px;
+    gap: 0;
+    overflow: hidden; /* clip ribbon to card radius */
+  }
+  .booking__badge {
+    position: static;
+    grid-area: badge;
+    left: auto; top: auto;
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 11px 14px;
+    border-radius: 0;
+    font-size: .65rem;
+    letter-spacing: .07em;
+    box-shadow: none;
+    text-align: center;
+  }
+  .booking > label.booking__field[for="checkin"] { grid-area: in; }
+  .booking__nights { grid-area: nights; }
+  .booking > label.booking__field[for="checkout"] { grid-area: out; }
+  .booking__field--guests { grid-area: guests; }
+  .booking__go { grid-area: go; }
+
+  .booking__field {
+    padding: 14px 14px 12px;
+    border-radius: 0;
+    min-width: 0; /* equal columns, no overflow asymmetry */
+  }
+  .booking > label.booking__field[for="checkin"] { padding-left: 16px; padding-right: 6px; }
+  .booking > label.booking__field[for="checkout"] { padding-left: 6px; padding-right: 16px; }
+
+  /* Kill uneven side borders / one-sided hover box on mobile */
+  .booking__field + .booking__field,
+  .booking__nights + .booking__field { border-left: 0 !important; }
+  .booking__field:hover { background: transparent; }
+  .booking__field:focus-within { background: rgba(255,255,255,.07); }
+
+  .booking__label { letter-spacing: .14em; }
   .booking input, .booking select, .booking textarea { font-size: 16px !important; } /* no iOS focus-zoom */
-  .booking__date b { font-size: 1.9rem; }
-  .booking__field--guests { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; }
-  .booking__field--guests .stepper { margin: 0; }
+  .booking__date { gap: 8px; margin-top: 4px; }
+  .booking__date b { font-size: 1.85rem; }
+  .booking__date > span { font-size: .8rem; }
+
+  .booking__nights {
+    padding: 14px 4px 12px;
+    align-self: stretch;
+  }
+  .booking__nights span { width: 42px; height: 42px; font-size: 1.05rem; }
+  .booking__nights::before { left: -4px; right: -4px; }
+
+  .booking__field--guests {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 14px 16px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    border-radius: 0;
+  }
+  .booking__field--guests .stepper { margin: 0; gap: 12px; }
   .stepper button { width: 44px; height: 44px; font-size: 1.35rem; } /* ≥44px tap target, no double-tap zoom */
-  .booking__go { grid-column: 1 / -1; padding: 1.05em; font-size: 1rem; }
-  .booking__badge { left: 18px; }
+  .stepper output { font-size: 1.85rem; min-width: 1.4ch; }
+
+  .booking__go {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: 10px 12px 0;
+    padding: 1.1em 1.2em;
+    font-size: 1rem;
+    border-radius: 16px;
+  }
   .hero__title { font-size: clamp(2.9rem, 14vw, 4.2rem); }
   .amenity-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .amenity { padding: 22px 18px; }
