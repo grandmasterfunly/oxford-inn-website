@@ -10,6 +10,11 @@
   const finePointer = matchMedia('(pointer: fine)').matches;
   const lerp = (a, b, t) => a + (b - a) * t;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  // iPhone/iPad (incl. iPadOS, which reports as MacIntel with touch) → Apple Maps; everything else → Google Maps.
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Apple Maps universal links hand off to the Maps app; open in the same tab so Safari doesn't leave a blank tab behind.
+  const mapsTarget = isIOS ? '' : ' target="_blank" rel="noopener"';
+  if (isIOS) $$('a[data-apple-maps]').forEach(a => { a.href = a.dataset.appleMaps; a.removeAttribute('target'); });
 
   const BOOKING = {
     base: 'https://booking.hotelkeyapp.com/#/',
@@ -78,21 +83,23 @@
   }
   function buzz(ms) { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) {} }
 
-  /* ---------------- Nav: solid, hide on scroll down ---------------- */
+  /* ---------------- Nav: always fixed; frosted bar; never hide on scroll ---------------- */
   const nav = $('#nav');
   const mbar = $('.mbar');
   const progress = $('#progress');
-  let lastY = scrollY;
   const onScrollNav = () => {
     const y = scrollY;
     const heroH = $('#hero').offsetHeight;
-    nav.classList.toggle('is-solid', y > 40);
-    nav.classList.toggle('is-hidden', y > heroH && y > lastY + 4 && !menu.classList.contains('is-open'));
-    if (y < lastY - 4) nav.classList.remove('is-hidden');
+    // Hysteresis: solid on after a few px, off only at very top — avoids threshold flicker
+    if (y > 24) nav.classList.add('is-solid');
+    else if (y <= 2) nav.classList.remove('is-solid');
+    nav.classList.remove('is-hidden'); // belt-and-suspenders; CSS also no-ops it
+    // Never touch transform/opacity on the nav
+    nav.style.transform = '';
+    nav.style.opacity = '';
     mbar && mbar.classList.toggle('is-on', y > heroH * 0.7);
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
-    lastY = y;
   };
 
   // current section highlight
@@ -544,7 +551,9 @@
     const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', rad(mi)); ringsG.append(c);
     const t = document.createElementNS(NS, 'text'); t.setAttribute('x', 4); t.setAttribute('y', -rad(mi) - 4); t.textContent = `${mi} mi`; ringsG.append(t);
   });
-  const mapsUrl = q => `https://www.google.com/maps/dir/?api=1&origin=35.490306,-93.84393&destination=${encodeURIComponent(q)}`;
+  const mapsUrl = q => isIOS
+    ? `https://maps.apple.com/?saddr=35.490306,-93.84393&daddr=${encodeURIComponent(q)}&dirflg=d`
+    : `https://www.google.com/maps/dir/?api=1&origin=35.490306,-93.84393&destination=${encodeURIComponent(q)}`;
   const num = i => String(i + 1).padStart(2, '0');
   const dist = p => `${p.approx ? '≈' : ''}${p.mi}`;
 
@@ -563,7 +572,7 @@
       <span class="place__num">${num(i)}</span>
       <div><span class="place__tag">${p.tag}</span><h3>${p.name}</h3><p>${p.addr}</p></div>
       <div class="place__dist"><b>${dist(p)}</b><small>miles</small></div>
-      <div class="place__go"><a href="${mapsUrl(p.q)}" target="_blank" rel="noopener">Get directions →</a></div>`;
+      <div class="place__go"><a href="${mapsUrl(p.q)}"${mapsTarget}>Get directions →</a></div>`;
     list.append(li);
 
     // phones: chip row + detail card under the radar
@@ -578,7 +587,7 @@
     panel.innerHTML = `
       <span class="rcard__num">${num(i)}</span>
       <div class="rcard__body"><span class="place__tag">${p.tag}<span class="rcard__mi"> · ${dist(p)} mi</span></span><h3>${p.name}</h3><p>${p.addr}</p></div>
-      <a class="rcard__go" href="${mapsUrl(p.q)}" target="_blank" rel="noopener" tabindex="-1" aria-label="Get directions to ${p.name}"><span class="rcard__goic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></span>Directions</a>`;
+      <a class="rcard__go" href="${mapsUrl(p.q)}"${mapsTarget} tabindex="-1" aria-label="Get directions to ${p.name}"><span class="rcard__goic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></span>Directions</a>`;
     card.append(panel);
   });
   const prompt = document.createElement('div');
