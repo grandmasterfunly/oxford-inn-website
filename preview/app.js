@@ -83,15 +83,20 @@
   }
   function buzz(ms) { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) {} }
 
-  /* ---------------- Nav: always fixed; solid after scroll (no hide-on-scroll) ---------------- */
+  /* ---------------- Nav: always fixed; frosted bar; never hide on scroll ---------------- */
   const nav = $('#nav');
   const mbar = $('.mbar');
   const progress = $('#progress');
   const onScrollNav = () => {
     const y = scrollY;
     const heroH = $('#hero').offsetHeight;
-    nav.classList.toggle('is-solid', y > 40);
-    nav.classList.remove('is-hidden');
+    // Hysteresis: solid on after a few px, off only at very top — avoids threshold flicker
+    if (y > 24) nav.classList.add('is-solid');
+    else if (y <= 2) nav.classList.remove('is-solid');
+    nav.classList.remove('is-hidden'); // belt-and-suspenders; CSS also no-ops it
+    // Never touch transform/opacity on the nav
+    nav.style.transform = '';
+    nav.style.opacity = '';
     mbar && mbar.classList.toggle('is-on', y > heroH * 0.7);
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;

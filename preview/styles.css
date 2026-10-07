@@ -154,11 +154,38 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round
 @media (pointer: fine) { .cursor { display: block; } }
 
 /* ---------- nav ---------- */
-.nav {
-  position: fixed; inset: 0 0 auto; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  padding: 18px var(--gutter); color: #fff; transition: padding .4s var(--ease), background .4s, color .4s, box-shadow .4s;
+/* Always fixed; never translate/opacity-hide. Color stays readable; only bg strength changes.
+   Padding is constant so height never jumps. backdrop-filter stays applied so WebKit does not
+   create/destroy a compositor layer on scroll (that flash looked like a 1s disappear). */
+:root { --nav-pad-y: 14px; --nav-h: calc(env(safe-area-inset-top, 0px) + var(--nav-pad-y) + 46px + var(--nav-pad-y)); }
+.nav, #nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 300;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: var(--nav-pad-y) var(--gutter);
+  padding-top: max(var(--nav-pad-y), env(safe-area-inset-top, 0px));
+  color: var(--fg);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(16px) saturate(1.35);
+  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+  box-shadow: 0 1px 0 transparent;
+  /* NO transform / opacity transitions — those caused the scroll-up disappear flash */
+  transition: background-color .2s ease, box-shadow .2s ease;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  isolation: isolate;
 }
-.nav.is-solid { padding-block: 10px; background: color-mix(in srgb, var(--bg) 82%, transparent); color: var(--fg); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 1px 0 var(--line); }
+.nav.is-solid, #nav.is-solid {
+  /* same padding & color — only stronger frosted plate */
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  box-shadow: 0 1px 0 var(--line);
+}
+.nav.is-menu, #nav.is-menu { color: #f7f1e6; background: transparent; box-shadow: none; }
+.nav.is-hidden, #nav.is-hidden { transform: none !important; } /* dead class: never hide */
 .nav__brand { display: flex; align-items: center; gap: 12px; }
 .nav__logo { width: 46px; --logo-color: currentColor; background: currentColor; transition: transform .6s var(--ease); }
 .nav__brand:hover .nav__logo { transform: rotate(-10deg) scale(1.05); }
@@ -604,7 +631,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round
   .pin.is-hot .ring { animation-name: ringPulseLg; }
   .hero__dots { display: none; }
   .neon { display: none; }
-  .hero__content { padding-top: 120px; }
+  .hero__content { padding-top: max(120px, calc(var(--nav-h) + 48px)); }
 
   /* tour becomes native swipe */
   .tour { height: auto; padding: 90px 0 70px; }
