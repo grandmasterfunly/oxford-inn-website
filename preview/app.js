@@ -83,21 +83,18 @@
   }
   function buzz(ms) { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) {} }
 
-  /* ---------------- Nav: solid, hide on scroll down ---------------- */
+  /* ---------------- Nav: always fixed; solid after scroll (no hide-on-scroll) ---------------- */
   const nav = $('#nav');
   const mbar = $('.mbar');
   const progress = $('#progress');
-  let lastY = scrollY;
   const onScrollNav = () => {
     const y = scrollY;
     const heroH = $('#hero').offsetHeight;
     nav.classList.toggle('is-solid', y > 40);
-    nav.classList.toggle('is-hidden', y > heroH && y > lastY + 4 && !menu.classList.contains('is-open'));
-    if (y < lastY - 4) nav.classList.remove('is-hidden');
+    nav.classList.remove('is-hidden');
     mbar && mbar.classList.toggle('is-on', y > heroH * 0.7);
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
-    lastY = y;
   };
 
   // current section highlight

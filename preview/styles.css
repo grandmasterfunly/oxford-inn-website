@@ -156,10 +156,9 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round
 /* ---------- nav ---------- */
 .nav {
   position: fixed; inset: 0 0 auto; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  padding: 18px var(--gutter); color: #fff; transition: padding .4s var(--ease), background .4s, color .4s, box-shadow .4s, transform .5s var(--ease);
+  padding: 18px var(--gutter); color: #fff; transition: padding .4s var(--ease), background .4s, color .4s, box-shadow .4s;
 }
 .nav.is-solid { padding-block: 10px; background: color-mix(in srgb, var(--bg) 82%, transparent); color: var(--fg); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 1px 0 var(--line); }
-.nav.is-hidden { transform: translateY(-110%); }
 .nav__brand { display: flex; align-items: center; gap: 12px; }
 .nav__logo { width: 46px; --logo-color: currentColor; background: currentColor; transition: transform .6s var(--ease); }
 .nav__brand:hover .nav__logo { transform: rotate(-10deg) scale(1.05); }
